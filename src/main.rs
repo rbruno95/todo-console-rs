@@ -31,7 +31,18 @@ fn delete() {}
 
 fn exit() {}
 
-fn help() {}
+fn help() {
+    println!(
+        r#"
+delete: interface to delete a task
+exit: exit the program
+help: show the available commands
+list: show all the tasks
+new: interface to create a task
+update: interface to edit a task
+        "#
+    );
+}
 
 fn list() {}
 

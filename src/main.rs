@@ -1,4 +1,5 @@
 use std::io::{self, Write};
+use std::process;
 
 fn main() {
     println!("Welcome to your TODO app");
@@ -29,7 +30,9 @@ fn main() {
 
 fn delete() {}
 
-fn exit() {}
+fn exit() {
+    process::exit(0);
+}
 
 fn help() {
     println!(

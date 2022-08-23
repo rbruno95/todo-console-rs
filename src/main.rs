@@ -27,7 +27,7 @@ fn main() {
             "delete" => delete(),
             "exit" => exit(),
             "help" => help(),
-            "list" => list(),
+            "list" => list(&mut tasks),
             "new" => new(&mut tasks),
             "update" => update(),
             _ => invalid_command(&command[..]),
@@ -54,7 +54,19 @@ update: interface to edit a task
     );
 }
 
-fn list() {}
+fn list(tasks: &mut Vec<Task>) {
+    println!("TODO:");
+
+    for task in tasks.iter().filter(|task| !task.done) {
+        println!("[  ] {}", task.name);
+    }
+
+    println!("DONE:");
+
+    for task in tasks.iter().filter(|task| task.done) {
+        println!("[  ] {}", task.name);
+    }
+}
 
 fn new(tasks: &mut Vec<Task>) {
     print!("Enter task name: ");

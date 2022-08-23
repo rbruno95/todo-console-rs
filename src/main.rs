@@ -13,25 +13,32 @@ fn main() {
 
         io::stdin().read_line(&mut command).unwrap();
 
+        command = command.trim().to_string();
+
         match &command[..] {
-            "exit" => exit(),
             "delete" => delete(),
+            "exit" => exit(),
+            "help" => help(),
             "list" => list(),
             "new" => new(),
             "update" => update(),
-            _ => invalid_command(),
+            _ => invalid_command(&command[..]),
         };
     }
 }
 
-fn new() {}
+fn delete() {}
 
 fn exit() {}
 
+fn help() {}
+
 fn list() {}
+
+fn new() {}
 
 fn update() {}
 
-fn delete() {}
-
-fn invalid_command() {}
+fn invalid_command(command: &str) {
+    println!("The command {command} is invalid.");
+}

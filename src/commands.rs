@@ -1,6 +1,9 @@
 use std::io::{self, Write};
 use std::process;
 
+#[path = "io_tools.rs"]
+mod io_tools;
+
 pub struct Task {
     pub name: String,
     pub done: bool,
@@ -86,13 +89,7 @@ fn new(tasks: &mut Vec<Task>) {
         .flush()
         .expect("There was a problem doing flush.");
 
-    let mut name = String::new();
-
-    io::stdin()
-        .read_line(&mut name)
-        .expect("There was a problem reading the name.");
-
-    name = name.trim().to_string();
+    let name = io_tools::read_line();
 
     tasks.push(Task { name, done: false });
 }
@@ -113,13 +110,7 @@ fn update(tasks: &mut Vec<Task>) {
         .flush()
         .expect("There was a problem doing flush.");
 
-    let mut index = String::new();
-
-    io::stdin()
-        .read_line(&mut index)
-        .expect("There was a problem reeading the index.");
-
-    let index = index
+    let index = io_tools::read_line()
         .trim()
         .parse::<usize>()
         .expect("There was a problem parsing.");

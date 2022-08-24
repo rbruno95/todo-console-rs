@@ -1,7 +1,7 @@
-use crate::commands::*;
 use std::io::{self, Write};
 
 mod commands;
+mod io_tools;
 
 fn main() {
     println!("Welcome to your TODO app.");
@@ -16,14 +16,8 @@ fn main() {
             .flush()
             .expect("There was a problem doing flush.");
 
-        let mut command = String::new();
+        let command = io_tools::read_line();
 
-        io::stdin()
-            .read_line(&mut command)
-            .expect("There was a problem reading the command.");
-
-        command = command.trim().to_string();
-
-        execute_command(&mut tasks, command);
+        commands::execute_command(&mut tasks, command);
     }
 }

@@ -1,5 +1,3 @@
-use std::io::{self, Write};
-
 mod commands;
 mod io_tools;
 
@@ -10,11 +8,7 @@ fn main() {
     let mut tasks = Vec::new();
 
     loop {
-        print!(">>> ");
-
-        io::stdout()
-            .flush()
-            .expect("There was a problem doing flush.");
+        io_tools::print_and_flush(">>> ");
 
         let command = io_tools::read_line();
 

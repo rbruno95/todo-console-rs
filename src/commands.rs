@@ -1,4 +1,3 @@
-use std::io::{self, Write};
 use std::process;
 
 #[path = "io_tools.rs"]
@@ -31,19 +30,9 @@ fn delete(tasks: &mut Vec<Task>) {
         println!("{i} -> {}", task.name);
     }
 
-    print!("Enter the number of the task: ");
+    io_tools::print_and_flush("Enter the number of the task: ");
 
-    io::stdout()
-        .flush()
-        .expect("There was a problem doing flush.");
-
-    let mut index = String::new();
-
-    io::stdin()
-        .read_line(&mut index)
-        .expect("There was a problem reading the index.");
-
-    let index = index
+    let index = io_tools::read_line()
         .trim()
         .parse::<usize>()
         .expect("There was a problem parsing the index to usize.");
@@ -83,11 +72,7 @@ fn list(tasks: &mut Vec<Task>) {
 }
 
 fn new(tasks: &mut Vec<Task>) {
-    print!("Enter task name: ");
-
-    io::stdout()
-        .flush()
-        .expect("There was a problem doing flush.");
+    io_tools::print_and_flush("Enter task name: ");
 
     let name = io_tools::read_line();
 
@@ -104,11 +89,7 @@ fn update(tasks: &mut Vec<Task>) {
         println!("{i} -> {}", task.name);
     }
 
-    print!("Enter the number of the task: ");
-
-    io::stdout()
-        .flush()
-        .expect("There was a problem doing flush.");
+    io_tools::print_and_flush("Enter the number of the task: ");
 
     let index = io_tools::read_line()
         .trim()

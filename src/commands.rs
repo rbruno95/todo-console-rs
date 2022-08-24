@@ -57,16 +57,12 @@ fn exit() {
 }
 
 fn help() {
-    println!(
-        r#"
-delete: interface to delete a task
-exit: exit the program
-help: show the available commands
-list: show all the tasks
-new: interface to create a task
-update: interface to edit a task
-        "#
-    );
+    println!("delete: interface to delete a task");
+    println!("exit: exit the program");
+    println!("help: show the available commands");
+    println!("list: show all the tasks");
+    println!("new: interface to create a task");
+    println!("update: interface to edit a task");
 }
 
 fn list(tasks: &mut Vec<Task>) {

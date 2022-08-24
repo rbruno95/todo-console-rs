@@ -7,19 +7,23 @@ struct Task {
 }
 
 fn main() {
-    println!("Welcome to your TODO app");
-    println!("If you need help or if you don't remember the commands type help");
+    println!("Welcome to your TODO app.");
+    println!("If you need help or if you don't remember the commands type help.");
 
     let mut tasks = Vec::new();
 
     loop {
         print!(">>> ");
 
-        io::stdout().flush().unwrap();
+        io::stdout()
+            .flush()
+            .expect("There was a problem doing flush.");
 
         let mut command = String::new();
 
-        io::stdin().read_line(&mut command).unwrap();
+        io::stdin()
+            .read_line(&mut command)
+            .expect("There was a problem reading the command.");
 
         command = command.trim().to_string();
 
@@ -47,13 +51,20 @@ fn delete(tasks: &mut Vec<Task>) {
 
     print!("Enter the number of the task: ");
 
-    io::stdout().flush().unwrap();
+    io::stdout()
+        .flush()
+        .expect("There was a problem doing flush.");
 
     let mut index = String::new();
 
-    io::stdin().read_line(&mut index).unwrap();
+    io::stdin()
+        .read_line(&mut index)
+        .expect("There was a problem reading the index.");
 
-    let index = index.trim().to_string().parse::<usize>().unwrap();
+    let index = index
+        .trim()
+        .parse::<usize>()
+        .expect("There was a problem parsing the index to usize.");
 
     if tasks.len() > index {
         tasks.remove(index);
@@ -96,11 +107,15 @@ fn list(tasks: &mut Vec<Task>) {
 fn new(tasks: &mut Vec<Task>) {
     print!("Enter task name: ");
 
-    io::stdout().flush().unwrap();
+    io::stdout()
+        .flush()
+        .expect("There was a problem doing flush.");
 
     let mut name = String::new();
 
-    io::stdin().read_line(&mut name).unwrap();
+    io::stdin()
+        .read_line(&mut name)
+        .expect("There was a problem reading the name.");
 
     name = name.trim().to_string();
 
@@ -119,13 +134,20 @@ fn update(tasks: &mut Vec<Task>) {
 
     print!("Enter the number of the task: ");
 
-    io::stdout().flush().unwrap();
+    io::stdout()
+        .flush()
+        .expect("There was a problem doing flush.");
 
     let mut index = String::new();
 
-    io::stdin().read_line(&mut index).unwrap();
+    io::stdin()
+        .read_line(&mut index)
+        .expect("There was a problem reeading the index.");
 
-    let index = index.trim().to_string().parse::<usize>().unwrap();
+    let index = index
+        .trim()
+        .parse::<usize>()
+        .expect("There was a problem parsing.");
 
     if tasks.len() > index {
         tasks[index].done = !tasks[index].done;

@@ -10,6 +10,14 @@ pub fn read_line() -> String {
     input.trim().to_string()
 }
 
+#[allow(dead_code)]
+pub fn read_usize() -> usize {
+    read_line()
+        .trim()
+        .parse::<usize>()
+        .expect("There was a problem parsing the index to usize.")
+}
+
 pub fn print_and_flush(string: &str) {
     print!("{string}");
 

@@ -32,10 +32,7 @@ fn delete(tasks: &mut Vec<Task>) {
 
     io_tools::print_and_flush("Enter the number of the task: ");
 
-    let index = io_tools::read_line()
-        .trim()
-        .parse::<usize>()
-        .expect("There was a problem parsing the index to usize.");
+    let index = io_tools::read_usize();
 
     if tasks.len() > index {
         tasks.remove(index);
@@ -91,10 +88,7 @@ fn update(tasks: &mut Vec<Task>) {
 
     io_tools::print_and_flush("Enter the number of the task: ");
 
-    let index = io_tools::read_line()
-        .trim()
-        .parse::<usize>()
-        .expect("There was a problem parsing.");
+    let index = io_tools::read_usize();
 
     if tasks.len() > index {
         tasks[index].done = !tasks[index].done;

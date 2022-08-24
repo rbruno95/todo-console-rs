@@ -24,7 +24,7 @@ fn main() {
         command = command.trim().to_string();
 
         match &command[..] {
-            "delete" => delete(),
+            "delete" => delete(&mut tasks),
             "exit" => exit(),
             "help" => help(),
             "list" => list(&mut tasks),
@@ -35,7 +35,32 @@ fn main() {
     }
 }
 
-fn delete() {}
+fn delete(tasks: &mut Vec<Task>) {
+    if tasks.len() == 0 {
+        println!("You don't have tasks.");
+        return;
+    }
+
+    for (i, task) in tasks.iter().enumerate() {
+        println!("{i} -> {}", task.name);
+    }
+
+    print!("Enter the number of the task: ");
+
+    io::stdout().flush().unwrap();
+
+    let mut index = String::new();
+
+    io::stdin().read_line(&mut index).unwrap();
+
+    let index = index.trim().to_string().parse::<usize>().unwrap();
+
+    if tasks.len() > index {
+        tasks.remove(index);
+    } else {
+        println!("Select one of the listed numbers.");
+    }
+}
 
 fn exit() {
     process::exit(0);
@@ -102,10 +127,11 @@ fn update(tasks: &mut Vec<Task>) {
 
     let index = index.trim().to_string().parse::<usize>().unwrap();
 
-    match tasks.len().checked_sub(index) {
-        Some(_) => tasks[index].done = !tasks[index].done,
-        _ => println!("Select one of the listed numbers."),
-    };
+    if tasks.len() > index {
+        tasks[index].done = !tasks[index].done;
+    } else {
+        println!("Select one of the listed numbers.");
+    }
 }
 
 fn invalid_command(command: &str) {

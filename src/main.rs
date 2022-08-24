@@ -24,14 +24,6 @@ fn main() {
 
         command = command.trim().to_string();
 
-        match &command[..] {
-            "delete" => delete(&mut tasks),
-            "exit" => exit(),
-            "help" => help(),
-            "list" => list(&mut tasks),
-            "new" => new(&mut tasks),
-            "update" => update(&mut tasks),
-            _ => invalid_command(&command[..]),
-        };
+        execute_command(&mut tasks, command);
     }
 }

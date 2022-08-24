@@ -6,7 +6,19 @@ pub struct Task {
     pub done: bool,
 }
 
-pub fn delete(tasks: &mut Vec<Task>) {
+pub fn execute_command(tasks: &mut Vec<Task>, command: String) {
+    match &command[..] {
+        "delete" => delete(tasks),
+        "exit" => exit(),
+        "help" => help(),
+        "list" => list(tasks),
+        "new" => new(tasks),
+        "update" => update(tasks),
+        _ => invalid_command(&command[..]),
+    };
+}
+
+fn delete(tasks: &mut Vec<Task>) {
     if tasks.len() == 0 {
         println!("You don't have tasks.");
         return;
@@ -40,11 +52,11 @@ pub fn delete(tasks: &mut Vec<Task>) {
     }
 }
 
-pub fn exit() {
+fn exit() {
     process::exit(0);
 }
 
-pub fn help() {
+fn help() {
     println!(
         r#"
 delete: interface to delete a task
@@ -57,7 +69,7 @@ update: interface to edit a task
     );
 }
 
-pub fn list(tasks: &mut Vec<Task>) {
+fn list(tasks: &mut Vec<Task>) {
     println!("TODO:");
 
     for task in tasks.iter().filter(|task| !task.done) {
@@ -71,7 +83,7 @@ pub fn list(tasks: &mut Vec<Task>) {
     }
 }
 
-pub fn new(tasks: &mut Vec<Task>) {
+fn new(tasks: &mut Vec<Task>) {
     print!("Enter task name: ");
 
     io::stdout()
@@ -89,7 +101,7 @@ pub fn new(tasks: &mut Vec<Task>) {
     tasks.push(Task { name, done: false });
 }
 
-pub fn update(tasks: &mut Vec<Task>) {
+fn update(tasks: &mut Vec<Task>) {
     if tasks.len() == 0 {
         println!("You don't have tasks.");
         return;
@@ -123,6 +135,6 @@ pub fn update(tasks: &mut Vec<Task>) {
     }
 }
 
-pub fn invalid_command(command: &str) {
+fn invalid_command(command: &str) {
     println!("The command {command} is invalid.");
 }

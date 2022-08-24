@@ -29,7 +29,7 @@ fn main() {
             "help" => help(),
             "list" => list(&mut tasks),
             "new" => new(&mut tasks),
-            "update" => update(),
+            "update" => update(&mut tasks),
             _ => invalid_command(&command[..]),
         };
     }
@@ -58,13 +58,13 @@ fn list(tasks: &mut Vec<Task>) {
     println!("TODO:");
 
     for task in tasks.iter().filter(|task| !task.done) {
-        println!("[  ] {}", task.name);
+        println!("[ ] {}", task.name);
     }
 
     println!("DONE:");
 
     for task in tasks.iter().filter(|task| task.done) {
-        println!("[  ] {}", task.name);
+        println!("[X] {}", task.name);
     }
 }
 
@@ -82,7 +82,31 @@ fn new(tasks: &mut Vec<Task>) {
     tasks.push(Task { name, done: false });
 }
 
-fn update() {}
+fn update(tasks: &mut Vec<Task>) {
+    if tasks.len() == 0 {
+        println!("You don't have tasks.");
+        return;
+    }
+
+    for (i, task) in tasks.iter().enumerate() {
+        println!("{i} -> {}", task.name);
+    }
+
+    print!("Enter the number of the task: ");
+
+    io::stdout().flush().unwrap();
+
+    let mut index = String::new();
+
+    io::stdin().read_line(&mut index).unwrap();
+
+    let index = index.trim().to_string().parse::<usize>().unwrap();
+
+    match tasks.len().checked_sub(index) {
+        Some(_) => tasks[index].done = !tasks[index].done,
+        _ => println!("Select one of the listed numbers."),
+    };
+}
 
 fn invalid_command(command: &str) {
     println!("The command {command} is invalid.");
